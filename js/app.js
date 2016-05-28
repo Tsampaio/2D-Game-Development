@@ -9,6 +9,8 @@ var Enemy = function(x, y, speed) {
     this.y = y;
     this.speed = speed;
     this.sprite = 'images/enemy-bug.png';
+    this.width = 50;
+    this.height = 50;
 };
 
 // Update the enemy's position, required method for game
@@ -17,7 +19,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x >= 606){
+    if (this.x >= 600){
         this.x = -101;
         this.speed = 50 + (Math.random() * 200);
         //this.y = Math.floor(Math.random()*2.999);
@@ -39,8 +41,10 @@ Enemy.prototype.render = function() {
 var Player = function(x, y) {
     this.sprite = 'images/char-boy.png';
 
-    this.x = x || 200;
-    this.y = y || 400;
+    this.x = x || 205;
+    this.y = y || 405;
+    this.width = 50;
+    this.height = 50;
 };
 
 
@@ -48,23 +52,32 @@ var Player = function(x, y) {
 
 Player.prototype.update = function(dt) {
 
-    if(Enemy.x === Player.x && Enemy.y === Player.y ){
-        Player.y = 400;
+    if( this.y < 10) {
+        player.reset(205,400);
     }
+
+    for (var i = 0; i < allEnemies.length; i++) {
+        var enemy = allEnemies[i];
+        if (player.x < enemy.x + enemy.width && player.x + player.width > enemy.x && player.y < enemy.y + enemy.height && player.height + player.y > enemy.y) {
+            player.reset(205,405);
+        }
+    };
 };
 
 Player.prototype.handleInput = function(key) {
 
-if (key === 'left' && this.x > 0) {
+if (key === 'left' && this.x > 10) {
         this.x -= 100;
-    } else if (key === 'right' && this.x < 301){
+        console.log("current player X position is " + this.x);
+    } else if (key === 'right' && this.x < 401){
         this.x += 100;
-    } else if (key === 'up' && this.y < 100){
-        this.y = 400;
-    } else if (key === 'up' && this.y > 10){
+        console.log("current player X position is " + this.x);
+    }  else if (key === 'up' && this.y > 10){
         this.y -= 85;
+        console.log("current player Y position is " + this.y);
     } else if (key === 'down' && this.y < 320){
         this.y += 85;
+        console.log("current player Y position is " + this.y);
     }
 
 };
@@ -73,13 +86,17 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Player.prototype.reset = function(x, y) {
+  this.x = x;
+  this.y = y;
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = new Enemy(-100,60,100);
+var enemy1 = new Enemy(-100,59,100);
 var enemy2 = new Enemy(-100,140,90);
-var enemy3 = new Enemy(-100,220,80);
+var enemy3 = new Enemy(-100,225,80);
 
 var allEnemies = [enemy1, enemy2, enemy3];
 
