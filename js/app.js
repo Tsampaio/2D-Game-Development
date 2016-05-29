@@ -21,8 +21,9 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     if (this.x >= 600){
         this.x = -101;
-        this.speed = 50 + (Math.random() * 200);
-        //this.y = Math.floor(Math.random()*2.999);
+        //set speed of the bugs when they restart from position X= -101
+        this.speed = 50 + (Math.random() * 300);
+
     } else {
         this.x += this.speed * dt;
     }
@@ -40,7 +41,6 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function(x, y) {
     this.sprite = 'images/char-boy.png';
-
     this.x = x || 205;
     this.y = y || 405;
     this.width = 50;
@@ -51,11 +51,11 @@ var Player = function(x, y) {
 
 
 Player.prototype.update = function(dt) {
-
+    //if player touch the water it goes back to the intial position
     if( this.y < 10) {
         player.reset(205,400);
     }
-
+    //Check the X and Y position of the player to see if there is any collision
     for (var i = 0; i < allEnemies.length; i++) {
         var enemy = allEnemies[i];
         if (player.x < enemy.x + enemy.width && player.x + player.width > enemy.x && player.y < enemy.y + enemy.height && player.height + player.y > enemy.y) {
@@ -66,6 +66,7 @@ Player.prototype.update = function(dt) {
 
 Player.prototype.handleInput = function(key) {
 
+//Set boundaries and how much should the player move around X and Y position, log the positions on console
 if (key === 'left' && this.x > 10) {
         this.x -= 100;
         console.log("current player X position is " + this.x);
@@ -86,6 +87,7 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//reset the position of the player
 Player.prototype.reset = function(x, y) {
   this.x = x;
   this.y = y;
@@ -94,9 +96,9 @@ Player.prototype.reset = function(x, y) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = new Enemy(-100,59,100);
-var enemy2 = new Enemy(-100,140,90);
-var enemy3 = new Enemy(-100,225,80);
+var enemy1 = new Enemy(-100,59,120);
+var enemy2 = new Enemy(-100,140,100);
+var enemy3 = new Enemy(-100,225,160);
 
 var allEnemies = [enemy1, enemy2, enemy3];
 
