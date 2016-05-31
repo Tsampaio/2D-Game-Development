@@ -6,5 +6,5 @@ In this game you control a boy, and your main objective is to reach the water, w
 If you reach the water you win, and the game restarts from original position
 
 ## Game Controls
-To move the player you can use the keyboard arrow keys, to move the player around the map, up, down left and right
+To move the player you can use the keyboard arrow keys, up, down, left and right, to move the player around the map
 
