@@ -53,13 +53,14 @@ var Player = function(x, y) {
 Player.prototype.update = function(dt) {
     //if player touch the water it goes back to the intial position
     if( this.y < 10) {
-        player.reset(205,400);
+        this.reset(205,400);
     }
     //Check the X and Y position of the player to see if there is any collision
-    for (var i = 0; i < allEnemies.length; i++) {
+    var enemiesLenght = allEnemies.length;
+    for (var i = 0; i < enemiesLenght; i++) {
         var enemy = allEnemies[i];
-        if (player.x < enemy.x + enemy.width && player.x + player.width > enemy.x && player.y < enemy.y + enemy.height && player.height + player.y > enemy.y) {
-            player.reset(205,405);
+        if (this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height && this.height + this.y > enemy.y) {
+            this.reset(205,405);
         }
     };
 };
@@ -120,3 +121,42 @@ document.addEventListener('keyup', function(e) {
 });
 
 console.log(allEnemies[0].x);
+
+
+/*
+var MainClass = function(x, y, speed) {
+    // Variables applied to each of our instances go here,
+    // we've provided one for you to get started
+
+    // The image/sprite for our enemies, this uses
+    // a helper we've provided to easily load images
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+
+    this.width = 50;
+    this.height = 50;
+};
+
+var Enemy = function() {
+    this.sprite = 'images/enemy-bug.png';
+}
+
+Enemy.prototype = new MainClass();
+
+var enemy1 = new Enemy(-100,59,120);
+var enemy2 = new Enemy(-100,140,100);
+var enemy3 = new Enemy(-100,225,160);
+
+var allEnemies = [enemy1, enemy2, enemy3];
+
+
+
+var Player = function() {
+    this.sprite = 'images/char-boy.png';
+}
+
+Player.prototype = new MainClass();
+var player = new Player();
+..
+*/
